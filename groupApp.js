@@ -75,11 +75,9 @@ class RecipeBuilder {
         // });
     }
 
-    static deleteRecipe(id) {
-        return $.ajax({
-            url: this.url + `/${id}`,
-            method: 'DELETE'
-        });
+    static async deleteRecipe(id) {
+        const response = await fetch(this.url + `/${id}`, {method: "DELETE"});
+        return response;
     }
 }
 

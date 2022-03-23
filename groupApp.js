@@ -75,13 +75,6 @@ class RecipeBuilder {
             body: JSON.stringify(recipeWithoutId)
         });
         return response;
-        // return $.ajax({
-        //     url: this.url + `/#${recipe._id}`,
-        //     type: 'PUT',
-        //     dataType: 'json',
-        //     data: JSON.stringify(recipe),
-        //     contentType: 'application/json',
-        // });
     }
 
     static async deleteRecipe(id) {
@@ -116,7 +109,7 @@ class RecipeManager {
     static addIngredient(id) {
         for (let recipe of this.recipes) {
             if (recipe._id == id) {
-                recipe.ingredients.push(new Ingredient($(`${recipe._id}-ingredient-name`).val()));
+                recipe.ingredients.push(new Ingredient($(`#${recipe._id}-ingredient-name`).val()));
                 RecipeBuilder.updateRecipe(recipe)
                 .then(() => {
                     return RecipeBuilder.getAllRecipes();
@@ -186,6 +179,16 @@ class RecipeManager {
                 </div>
                 <ul class="list-group mb-3" id="${recipe._id}-ingredient-list">
                 </ul>
+                <br>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Step">
+                  <div class="input-group-append">
+                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addStep('${recipe._id}')">Add</button>
+                  </div>
+                </div>  
+                <ol class="list-group list-group-numbered mb-3" id="${recipe._id}-step-list">
+                </ol>
+                
                 <button class="btn btn-danger" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete</button>
                 <br><br>`
             );
@@ -198,7 +201,17 @@ class RecipeManager {
                     </li>
                     `
                 )
-            }
+            };
+            for (let step of recipe.steps) {
+                $(`#${recipe._id}-step-list`).append(
+                    `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${step._id}'>${step.name}
+                    <span class="badge">
+                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteStep('${recipe._id}', '${step._id}')">X</button>
+                    </span>
+                    </li>
+                    `
+                )
+            };
         }
     }
 }

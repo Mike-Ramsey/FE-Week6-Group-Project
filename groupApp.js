@@ -162,62 +162,30 @@ class RecipeManager {
         }
     }
 
+// simplified this section until I get bugs worked out
+
     static render(recipes) {
         this.recipes = recipes;
         $('#recipe-form').empty();
         for (let recipe of recipes) {
             $('#recipe-form').append(
-                `<div id="${recipe._id}"><strong><h4>${recipe.name}</h4></strong>
-                <div class="accordian" >
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Ingredients
-                        </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul class="list-group" id="ingredient-list">
-                                    <li class="input-group mb-3">
-                                        <input type="text" id="${recipe._id}-ingredient-name" class="form-control" placeholder="Ingredient">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">Add</button>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Steps
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ol class="list-group">
-                                    <li class="input-group mb-3">
-                                        <input type="text" id="${recipe._id}-step-name" class="form-control" placeholder="Step">
-                                        <div class="input-group-append">
-                                            <button id="${recipe._id}" class="btn btn-success" onclick="RecipeManager.addStep('${recipe._id}')" type="button">Add</button>
-                                        </div>
-                                    </li>
-                                </ol>            
-                            </div>
-                        </div>
-                    </div>
+                `
+                <div id="${recipe._id}"><strong><h4>${recipe.name}</h4></strong></div>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="${recipe._id}-ingredient-name" placeholder="Ingredient">
+                  <div class="input-group-append">
+                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">Add</button>
+                  </div>
                 </div>
+                <ul class="list-group" id="ingredient-list">
+                </ul>
                 <button class="btn btn-danger" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete</button>
-                <br>            
-            </div>
-            <br>    
-            `
+                <br><br>`
             );
             for (let ingredient of recipe.ingredients) {
                 $('#ingredient-list').append(
                     `<li>${ingredient.name}</li>`
-                );
+                )
             }
         }
     }

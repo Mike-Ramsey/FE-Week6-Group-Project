@@ -64,6 +64,8 @@ class RecipeBuilder {
     }
 
     static async updateRecipe(recipe) {
+        const response = await fetch(this.url + `/${recipe._id}`, getFetchOptions("PUT", {text: recipe.text}));
+        return response;
         // return $.ajax({
         //     url: this.url + `/#${recipe._id}`,
         //     type: 'PUT',

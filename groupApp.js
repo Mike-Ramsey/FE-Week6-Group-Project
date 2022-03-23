@@ -64,8 +64,17 @@ class RecipeBuilder {
     }
 
     static async updateRecipe(recipe) {
-        const response = await fetch(this.url + `/${recipe._id}`, getFetchOptions("PUT", {text: recipe.text}));
-        return response;
+        const recipeWithoutId = {
+            name: recipe.name,
+            ingredients: recipe.ingredients,
+            steps: recipe.steps
+        }
+        const response = await fetch(this.url + `/${recipe._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(recipeWithoutId)
+        });
+        return await response;
         // return $.ajax({
         //     url: this.url + `/#${recipe._id}`,
         //     type: 'PUT',
@@ -181,7 +190,7 @@ class RecipeManager {
                 <br><br>`
             );
             for (let ingredient of recipe.ingredients) {
-                $('#ingredient-list').append(
+                $(`#${recipe._id}`).find('.ingredient-list').append(
                     `<li>${ingredient.name}</li>`
                 )
             }

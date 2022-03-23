@@ -190,8 +190,8 @@ class RecipeManager {
                 <br><br>`
             );
             for (let ingredient of recipe.ingredients) {
-                $(`#${recipe._id}`).find('.ingredient-list').append(
-                    `<li>${ingredient.name}</li>`
+                $(`#ingredient-list`).append(
+                    `<li class='list-group-item'>${ingredient.name}</li>`
                 )
             }
         }

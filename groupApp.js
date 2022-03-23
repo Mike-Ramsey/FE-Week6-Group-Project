@@ -172,9 +172,18 @@ class RecipeManager {
         this.recipes = recipes;
         $('#recipe-form').empty();
         for (let recipe of recipes) {
-            $('#recipe-form').append(
+            $('#recipe-form').prepend(
                 `
                 <div id="${recipe._id}"><strong><h4>${recipe.name}</h4></strong></div>
+                <div class="accordian" >
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Ingredients
+                    </button>
+                    </h3>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">        
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" id="${recipe._id}-ingredient-name" placeholder="Ingredient">
                   <div class="input-group-append">
@@ -182,7 +191,19 @@ class RecipeManager {
                   </div>
                 </div>
                 <ul class="list-group mb-3" id="${recipe._id}-ingredient-list">
-                </ul>                
+                </ul>
+                </div>
+                </div>
+                </div>
+                </div>
+                <div class="accordion-item">
+                <h3 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Steps
+                    </button>
+                </h3>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">                    
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Step">
                   <div class="input-group-append">
@@ -190,7 +211,10 @@ class RecipeManager {
                   </div>
                 </div>  
                 <ol class="list-group list-group-numbered mb-3" id="${recipe._id}-step-list">
-                </ol>                
+                </ol>
+                </div>
+                </div>
+                </div>                
                 <button class="btn btn-danger" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete</button>
                 <br><br>`
             );
@@ -206,9 +230,9 @@ class RecipeManager {
             };
             for (let step of recipe.steps) {
                 $(`#${recipe._id}-step-list`).append(
-                    `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${step._id}'>${step.name}
+                    `<li class='list-group-item d-flex justify-content-between align-items-start' id='name-${step._id}'>${step.name}
                     <span class="badge">
-                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteStep('${recipe._id}', '${step.name}')">X</button>
+                      <button class="btn btn-danger btn-sm list-group-append" type="button" onclick="RecipeManager.deleteStep('${recipe._id}', '${step.name}')">X</button>
                     </span>
                     </li>
                     `

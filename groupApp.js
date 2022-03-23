@@ -74,7 +74,7 @@ class RecipeBuilder {
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify(recipeWithoutId)
         });
-        return await response;
+        return response;
         // return $.ajax({
         //     url: this.url + `/#${recipe._id}`,
         //     type: 'PUT',
@@ -184,14 +184,19 @@ class RecipeManager {
                     <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">Add</button>
                   </div>
                 </div>
-                <ul class="list-group" id="ingredient-list">
+                <ul class="list-group mb-3" id="${recipe._id}-ingredient-list">
                 </ul>
                 <button class="btn btn-danger" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete</button>
                 <br><br>`
             );
             for (let ingredient of recipe.ingredients) {
-                $(`#ingredient-list`).append(
-                    `<li class='list-group-item'>${ingredient.name}</li>`
+                $(`#${recipe._id}-ingredient-list`).append(
+                    `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${ingredient._id}'>${ingredient.name}
+                    <span class="badge">
+                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteIngredient('${recipe._id}', '${ingredient._id}')">X</button>
+                    </span>
+                    </li>
+                    `
                 )
             }
         }

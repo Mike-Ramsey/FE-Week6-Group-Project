@@ -132,31 +132,35 @@ class RecipeManager {
         }
     }
 
-    static deleteIngredient(recipeID) {
+    static deleteIngredient(recipeID, ingredientID) {
         for (let recipe of this.recipes) {
             if(recipe._id == recipeID) {
                 for(let ingredient of recipe.ingredients) {
-                    recipe.ingredients.splice(recipe.ingredients.indexOf(ingredient), 1);
-                    RecipeBuilder.updateRecipe(recipe)
+                    if(ingredient.name == ingredientID) {
+                        recipe.ingredients.splice(recipe.ingredients.indexOf(ingredient), 1);                   
+                        RecipeBuilder.updateRecipe(recipe)
                         .then(() => {
                             return RecipeBuilder.getAllRecipes();
                         })
                         .then((recipes) => this.render(recipes));
+                    }
                 }
             }
         }
     }
 
-    static deleteStep(recipeID) {
+    static deleteStep(recipeID, stepID) {
         for (let recipe of this.recipes) {
             if(recipe._id == recipeID) {
                 for(let step of recipe.steps) {
+                    if(step.name == stepID) {
                     recipe.steps.splice(recipe.steps.indexOf(step), 1);
                     RecipeBuilder.updateRecipe(recipe)
                         .then(() => {
                             return RecipeBuilder.getAllRecipes();
                         })
                         .then((recipes) => this.render(recipes));
+                    }
                 }
             }
         }
@@ -178,8 +182,7 @@ class RecipeManager {
                   </div>
                 </div>
                 <ul class="list-group mb-3" id="${recipe._id}-ingredient-list">
-                </ul>
-                <br>
+                </ul>                
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Step">
                   <div class="input-group-append">
@@ -187,8 +190,7 @@ class RecipeManager {
                   </div>
                 </div>  
                 <ol class="list-group list-group-numbered mb-3" id="${recipe._id}-step-list">
-                </ol>
-                
+                </ol>                
                 <button class="btn btn-danger" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete</button>
                 <br><br>`
             );
@@ -196,7 +198,7 @@ class RecipeManager {
                 $(`#${recipe._id}-ingredient-list`).append(
                     `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${ingredient._id}'>${ingredient.name}
                     <span class="badge">
-                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteIngredient('${recipe._id}', '${ingredient._id}')">X</button>
+                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteIngredient('${recipe._id}', '${ingredient.name}')">X</button>
                     </span>
                     </li>
                     `
@@ -206,7 +208,7 @@ class RecipeManager {
                 $(`#${recipe._id}-step-list`).append(
                     `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${step._id}'>${step.name}
                     <span class="badge">
-                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteStep('${recipe._id}', '${step._id}')">X</button>
+                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteStep('${recipe._id}', '${step.name}')">X</button>
                     </span>
                     </li>
                     `

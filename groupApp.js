@@ -193,7 +193,7 @@ class RecipeManager {
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Add Step">
                   <div class="input-group-append">
-                    <button class="btn btn-success form-control d-flex" type="button" onclick="RecipeManager.addStep('${recipe._id}')">+</button>
+                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addStep('${recipe._id}')">+</button>
                   </div>
                 </div>
                 <ol class="list-group list-group-numbered ms-3 mb-3" id="${recipe._id}-step-list">

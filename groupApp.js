@@ -45,7 +45,7 @@ class User {
     createList(){
         this.list = new ShoppingList("Shopping List");  //assumed to only be one shopping list so just name it "shopping list"
     }
-
+    
     emptyList(){
         this.list = NULL;         //make shopping list empty again
     }

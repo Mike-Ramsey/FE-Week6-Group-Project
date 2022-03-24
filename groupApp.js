@@ -132,11 +132,11 @@ class RecipeManager {
         }
     }
 
-    static deleteIngredient(recipeID, ingredientID) {
+    static deleteIngredient(recipeID, ingredientName) {
         for (let recipe of this.recipes) {
             if(recipe._id == recipeID) {
                 for(let ingredient of recipe.ingredients) {
-                    if(ingredient.name == ingredientID) {
+                    if(ingredient.name == ingredientName) {
                         recipe.ingredients.splice(recipe.ingredients.indexOf(ingredient), 1);                   
                         RecipeBuilder.updateRecipe(recipe)
                         .then(() => {
@@ -149,11 +149,11 @@ class RecipeManager {
         }
     }
 
-    static deleteStep(recipeID, stepID) {
+    static deleteStep(recipeID, stepName) {
         for (let recipe of this.recipes) {
             if(recipe._id == recipeID) {
                 for(let step of recipe.steps) {
-                    if(step.name == stepID) {
+                    if(step.name == stepName) {
                     recipe.steps.splice(recipe.steps.indexOf(step), 1);
                     RecipeBuilder.updateRecipe(recipe)
                         .then(() => {
@@ -166,54 +166,63 @@ class RecipeManager {
         }
     }
 
-// simplified this section until I get bugs worked out
-
     static render(recipes) {
         this.recipes = recipes;
-        $('#recipe-form').empty();
+        $('#recipe-form').empty();     
         for (let recipe of recipes) {
-            $('#recipe-form').append(
-                `
-                <div id="${recipe._id}"><strong><h4>${recipe.name}</h4></strong></div>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="${recipe._id}-ingredient-name" placeholder="Ingredient">
+            $('#recipe-form').prepend(
+            `
+            <div class="container bg-secondary text-light">
+              <div class="row">            
+              <div class="col-sm-12 d-flex mb-3 me-3 mt-3" id="${recipe._id}"><strong><h3>${recipe.name}</h3></strong>
+              <button class="btn btn-danger ms-auto" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete Recipe</button>
+              </div>
+              </div>             
+              <div class="row">
+              <div class="col-md-4">
+                <div class="input-group mb-3 ms-3">
+                  <input type="text" class="form-control" id="${recipe._id}-ingredient-name" placeholder="Add Ingredient">
                   <div class="input-group-append">
-                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">Add</button>
+                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">+</button>
                   </div>
                 </div>
-                <ul class="list-group mb-3" id="${recipe._id}-ingredient-list">
-                </ul>                
+                <ul class="list-group ms-3 mb-3" id="${recipe._id}-ingredient-list">
+                </ul>                 
+              </div>
+              <div class="col-md-8">
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Step">
+                  <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Add Step">
                   <div class="input-group-append">
-                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addStep('${recipe._id}')">Add</button>
+                    <button class="btn btn-success form-control d-flex" type="button" onclick="RecipeManager.addStep('${recipe._id}')">+</button>
                   </div>
-                </div>  
-                <ol class="list-group list-group-numbered mb-3" id="${recipe._id}-step-list">
-                </ol>                
-                <button class="btn btn-danger" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete</button>
-                <br><br>`
+                </div>
+                <ol class="list-group list-group-numbered ms-3 mb-3" id="${recipe._id}-step-list">
+                </ol>
+              </div>
+              </div>
+            </div>                        
+            </div>
+            <br>         
+            `
             );
+
             for (let ingredient of recipe.ingredients) {
                 $(`#${recipe._id}-ingredient-list`).append(
-                    `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${ingredient._id}'>${ingredient.name}
-                    <span class="badge">
-                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteIngredient('${recipe._id}', '${ingredient.name}')">X</button>
-                    </span>
-                    </li>
-                    `
+                    `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${ingredient.name}'>
+                       <div class="text-decoration-none">${ingredient.name}</div>
+                       <div class="btn btn-sm btn-danger" type="button" onclick="RecipeManager.deleteIngredient('${recipe._id}', '${ingredient.name}')">-</div>
+                    </li>`                    
                 )
             };
+
             for (let step of recipe.steps) {
                 $(`#${recipe._id}-step-list`).append(
-                    `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${step._id}'>${step.name}
-                    <span class="badge">
-                      <button class="btn btn-danger btn-sm" type="button" onclick="RecipeManager.deleteStep('${recipe._id}', '${step.name}')">X</button>
-                    </span>
-                    </li>
-                    `
+                    `<li class='list-group-item d-flex justify-content-between align-items-center' id='name-${step.name}'>
+                       <div class="text-decoration-none">${step.name}</div>
+                       <div class="btn btn-sm btn-danger" type="button" onclick="RecipeManager.deleteStep('${recipe._id}', '${step.name}')">-</div>
+                    </li>`                    
                 )
-            };
+            };    
         }
     }
 }

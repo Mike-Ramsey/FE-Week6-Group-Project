@@ -116,7 +116,7 @@ class RecipeManager {
                 })
                 .then((recipes) => this.render(recipes));
             }
-        }
+        };
     }
 
     static addStep(id) {
@@ -165,44 +165,93 @@ class RecipeManager {
             }
         }
     }
-
+   
+    static fixAccordion(id) {
+        $('.accordion-collapse').removeClass().addClass('accordion-collapse collapse');
+        $('#collapse-' + id).addClass('show');        
+    }
+    
     static render(recipes) {
         this.recipes = recipes;
         $('#recipe-form').empty();     
         for (let recipe of recipes) {
             $('#recipe-form').prepend(
+            
+            // old code here in case I can't get accordion working to my liking
+            // `
+            // <div class="container bg-secondary text-light">
+            //   <div class="row">            
+            //   <div class="col-sm-12 d-flex mb-3 me-3 mt-3" id="${recipe._id}"><strong><h3>${recipe.name}</h3></strong>
+            //   <button class="btn btn-danger ms-auto" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete Recipe</button>
+            //   </div>
+            //   </div>             
+            //   <div class="row">
+            //   <div class="col-md-4">
+            //     <div class="input-group mb-3 ms-3">
+            //       <input type="text" class="form-control" id="${recipe._id}-ingredient-name" placeholder="Add Ingredient">
+            //       <div class="input-group-append">
+            //         <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">+</button>
+            //       </div>
+            //     </div>
+            //     <ul class="list-group ms-3 mb-3" id="${recipe._id}-ingredient-list">
+            //     </ul>                 
+            //   </div>
+            //   <div class="col-md-8">
+            //     <div class="input-group mb-3">
+            //       <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Add Step">
+            //       <div class="input-group-append">
+            //         <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addStep('${recipe._id}')">+</button>
+            //       </div>
+            //     </div>
+            //     <ol class="list-group list-group-numbered ms-3 mb-3" id="${recipe._id}-step-list">
+            //     </ol>
+            //   </div>
+            //   </div>
+            // </div>                        
+            // </div>
+            // <br>
+            // `
             `
-            <div class="container bg-secondary text-light">
-              <div class="row">            
-              <div class="col-sm-12 d-flex mb-3 me-3 mt-3" id="${recipe._id}"><strong><h3>${recipe.name}</h3></strong>
-              <button class="btn btn-danger ms-auto" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete Recipe</button>
-              </div>
-              </div>             
-              <div class="row">
-              <div class="col-md-4">
-                <div class="input-group mb-3 ms-3">
-                  <input type="text" class="form-control" id="${recipe._id}-ingredient-name" placeholder="Add Ingredient">
-                  <div class="input-group-append">
-                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">+</button>
+            <div class="accordion" id="accordion-${recipe._id}">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne-${recipe._id}">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${recipe._id}" aria-expanded="false" aria-controls="collapse-${recipe._id}">
+                  ${recipe.name}
+                  </button>
+                </h2>
+                <div id="collapse-${recipe._id}" class="accordion-collapse collapse show" aria-labelledby="headingOne-${recipe._id}">
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="input-group mb-3 ms-3">
+                          <input type="text" class="form-control" id="${recipe._id}-ingredient-name" placeholder="Add Ingredient">
+                          <div class="input-group-append">
+                            <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">+</button>
+                          </div>
+                        </div>
+                        <ul class="list-group ms-3 mb-3" id="${recipe._id}-ingredient-list">
+                        </ul>                 
+                      </div>
+                      <div class="col-md-8">
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Add Step">
+                          <div class="input-group-append">
+                            <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addStep('${recipe._id}')">+</button>
+                          </div>
+                        </div>
+                        <ol class="list-group list-group-numbered ms-3 mb-3" id="${recipe._id}-step-list">
+                        </ol>
+                      </div>
+                    </div>
+                    <div class="row">            
+                      <div class="col-sm-12 d-flex mb-3 me-3 mt-3"><strong><h3>${recipe.name}</h3></strong>
+                        <button class="btn btn-danger ms-auto" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete Recipe</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <ul class="list-group ms-3 mb-3" id="${recipe._id}-ingredient-list">
-                </ul>                 
               </div>
-              <div class="col-md-8">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="${recipe._id}-step-name" placeholder="Add Step">
-                  <div class="input-group-append">
-                    <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addStep('${recipe._id}')">+</button>
-                  </div>
-                </div>
-                <ol class="list-group list-group-numbered ms-3 mb-3" id="${recipe._id}-step-list">
-                </ol>
-              </div>
-              </div>
-            </div>                        
             </div>
-            <br>         
             `
             );
 

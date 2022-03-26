@@ -4,16 +4,11 @@
 // Data
 let listId = 0; //Erika
 
+
 // Cassie Functions
 
 
 // Erika Functions
-
-// DONE try to get the delete button on the right side
-// DONE automatically open toggle when a new item is entered
-// close toggle when all items are deleted
-// fix all toggles close when an accordion is empty
-// clean up code with jQuery
 
 document.getElementById('add-item-button').addEventListener('click', () => {
     if(document.getElementById('selected-category').value == 1) {
@@ -96,17 +91,8 @@ function createItemDeleteButton(listId) {
     deleteButton.onclick = () => {
         let elementToDelete = document.getElementById(`${listId}`);
         elementToDelete.parentNode.removeChild(elementToDelete);
-        closeToggle();
     }
     return deleteButton;
 }
-
-function closeToggle() {
-    if( $('tbody').is(':empty') ) {
-        $('#accordion-button').addClass('collapsed').attr('aria-expanded', false);
-        this.$('.accordion-collapse').removeClass('show');
-    }
-}
-
 
 // Mike Functions

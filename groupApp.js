@@ -34,38 +34,99 @@ class Step {
 
 // Cassie Functions
 
+// class User {
+//     constructor(name) {
+//         this.name = name;       //name of the user
+//         this.list;              //assumed to only have one shopping cart
+//         this.Recipes = [];      //all recipes that a user can have
+//     }
+
+//     createList(){
+//         this.list = new ShoppingList("Shopping List");  //assumed to only be one shopping list so just name it "shopping list"
+//     }
+    
+//     emptyList(){
+//         this.list = NULL;         //make shopping list empty again
+//     }
+
+//     addRecipe(recipe) {
+//         this.Recipes.push(new Recipe(recipe))       //add the recipe by making a new one and pushing it onto the array
+//     }
+    
+//     deleteRecipe(recipe){
+//         this.Recipes.splice(this.Recipes.indexOf(recipe), 1);   //find the index of the recipe that you want to delete
+//                                                                 //then delete it with splice
+//     }
+// }
+
+// class ShoppingList {
+//     constructor (name) {
+//         this.name = name;
+//         this.ingredients = [];
+//     }
+
+//     //more functions
+// }
 class User {
     constructor(name) {
-        this.name = name;       //name of the user
-        this.list;              //assumed to only have one shopping cart
-        this.Recipes = [];      //all recipes that a user can have
-    }
-
-    createList(){
-        this.list = new ShoppingList("Shopping List");  //assumed to only be one shopping list so just name it "shopping list"
-    }
-    
-    emptyList(){
-        this.list = NULL;         //make shopping list empty again
-    }
-
-    addRecipe(recipe) {
-        this.Recipes.push(new Recipe(recipe))       //add the recipe by making a new one and pushing it onto the array
-    }
-    
-    deleteRecipe(recipe){
-        this.Recipes.splice(this.Recipes.indexOf(recipe), 1);   //find the index of the recipe that you want to delete
-                                                                //then delete it with splice
+        this.name =name;
     }
 }
 
-class ShoppingList {
-    constructor (name) {
+class UserManager {
+    constructor(name) {  
         this.name = name;
-        this.ingredients = [];
+        this.users = [];  // an array to hold all users
     }
 
-    //more functions
+    addUser(user) { 
+        this.users.push(user);
+    }
+
+    deleteUser(user) {
+        let index = this.users.indexOf(user);
+        this.users.splice(index, 1); 
+    }
+
+    makeUserList(){
+        $('#user-name').empty();     
+        for (let user of users) {
+            $('#user-name').prepend(      //make main box and **copy Mikes format for continuity
+            `
+            <div class="container bg-secondary text-light">
+            <!--<div class="row">            
+                    <div class="col-sm-12 d-flex mb-3 me-3 mt-3" id="${recipe._id}"><strong><h3>${recipe.name}</h3></strong>
+                    <button class="btn btn-danger ms-auto" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete Recipe</button>
+                    </div>
+                </div> -->             
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group mb-3 ms-3">
+                            <input type="text" class="form-control" id="${user.name}-name" placeholder="Add Ingredient">
+                            <div class="input-group-append">
+                                <button class="btn btn-success form-control" type="button" onclick="RecipeManager.addIngredient('${recipe._id}')">+</button>
+                            </div>
+                        </div>
+                        <ul class="list-group ms-3 mb-3" id="${recipe._id}-ingredient-list"></ul>                 
+                    </div>
+                </div>
+            </div>
+            `);
+        }
+    }
+}
+
+onClick("login-button", () => {
+    let theName = getValue('user-name');
+    let thisGuy = new User(theName);
+    UserManager.addUser(thisGuy);
+    UserManager.makeUserList(); //build tables for lists
+});
+
+function onClick(id, action) {
+    let element = document.getElementById(id);
+    element.addEventListener('click', action);
+    return element;
 }
 
 

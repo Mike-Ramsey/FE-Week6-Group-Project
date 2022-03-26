@@ -1,5 +1,22 @@
 // Templates and Containers
 
+
+// Data
+
+
+// Cassie Functions
+
+
+// Erika Functions
+
+
+// Mike Functions
+const getFetchOptions = (method, data) => ({ 
+    method: method, 
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+})
+
 class Recipe {
     constructor (name) {
         this.name = name;
@@ -28,6 +45,7 @@ class Step {
     }
 }
 
+<<<<<<< HEAD
 
 // Data
 
@@ -141,6 +159,8 @@ const getFetchOptions = (method, data) => ({
     body: JSON.stringify(data)
 })
 
+=======
+>>>>>>> 9adc997b8de4b9ae5432e1d82084d38f0acdb3dd
 class RecipeBuilder {
     static url = 'https://crudcrud.com/api/3d8ac86949d141f5b68c72ae7857bc42/recipes';
 
@@ -212,7 +232,7 @@ class RecipeManager {
                 })
                 .then((recipes) => this.render(recipes));
             }
-        }
+        };
     }
 
     static addStep(id) {
@@ -261,7 +281,7 @@ class RecipeManager {
             }
         }
     }
-
+   
     static render(recipes) {
         this.recipes = recipes;
         $('#recipe-form').empty();     
@@ -298,9 +318,9 @@ class RecipeManager {
               </div>
             </div>                        
             </div>
-            <br>         
+            <br>
             `
-            );
+             );
 
             for (let ingredient of recipe.ingredients) {
                 $(`#${recipe._id}-ingredient-list`).append(

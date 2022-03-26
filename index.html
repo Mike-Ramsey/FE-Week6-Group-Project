@@ -7,8 +7,16 @@
     <title>Cassie Erika & Mike Group Project</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
-<body>
-    
+<style>
+    body {
+        background-image: url('background.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+<body> 
+
     <!-- Placeholder div for header/navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -64,10 +72,13 @@
 
     <!-- This div is for Mike's recipe card entity -->
     <a name="mikeEntity"></a>
-    <div class="container" id="new-recipe">
-        <h3>New Recipe</h3>
-        <input type="text" id="new-recipe-name" class="form-control" placeholder="Recipe Name">
-        <button id="create-new-recipe" class="btn btn-primary">Create Recipe</button>
+    <div class="container bg-light text-dark" id="new-recipe">
+        <br>
+        <h2>Recipe Manager</h2>
+        <input type="text" id="new-recipe-name" class="form-control" placeholder="Enter New Recipe Name">
+        <br>
+        <button id="create-new-recipe" class="btn btn-success">Create Recipe</button>
+        <br><br>
     </div><br>
     <div class="container" id="recipe-form">
 

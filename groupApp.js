@@ -172,7 +172,7 @@ class RecipeManager {
         for (let recipe of recipes) {
             $('#recipe-form').prepend(
             `
-            <div class="container bg-secondary text-light">
+            <div class="container bg-light text-dark">
               <div class="row">            
               <div class="col-sm-12 d-flex mb-3 me-3 mt-3" id="${recipe._id}"><strong><h3>${recipe.name}</h3></strong>
               <button class="btn btn-danger ms-auto" onclick="RecipeManager.deleteRecipe('${recipe._id}')">Delete Recipe</button>
@@ -198,9 +198,11 @@ class RecipeManager {
                 </div>
                 <ol class="list-group list-group-numbered ms-3 mb-3" id="${recipe._id}-step-list">
                 </ol>
+                <br>
               </div>
               </div>
-            </div>                        
+            </div>
+            <br>                        
             </div>
             <br>
             `

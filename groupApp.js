@@ -29,10 +29,10 @@ class Contributor {
 }
 
 let lists = []; 
-let listId = 0; 
+let userListId = 0; 
 
 onClick('new-list', () => {
-    lists.push(new Contributor(listId++, getValue('new-list-name')))
+    lists.push(new Contributor(userListId++, getValue('new-list-name')))
     drawDOM(); 
 });
 

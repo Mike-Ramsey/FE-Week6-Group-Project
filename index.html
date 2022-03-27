@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cassie Erika & Mike Group Project</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <style>
     body {
@@ -15,9 +16,7 @@
         background-size: cover;
     }
 </style>
-<body> 
-
-    <!-- Placeholder div for header/navbar -->
+<body class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Cassie, Erika & Mike: Group Project</a>
@@ -50,11 +49,84 @@
 
     <!-- This div is for Erika's shopping list entity -->
     <a name="erikaEntity"></a>
-    <div>
-
-    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card mt-5 mx-5" id="form-style">
+                <h5 class="card-header bg-success text-white">Add an item to the shopping list</h5>
+                <div class="card-body">
+                    <div class="row d-flex align-items-end">
+                        <div class="col">
+                            <label for="item-input">Item</label>
+                            <input type="text" class='form-control' id="item-input">
+                        </div>
+                        <div class=col>
+                            <select id="selected-category" class="form-select" aria-label="Default select example">
+                                <option selected value="0">Select the Category</option>
+                                <option value="1" id="pantry-items">Pantry Items</option>
+                                <option value="2" id="fruits">Fruits & Veggies</option>
+                                <option value="3" id="meats">Meats</option>
+                                <option value="4" id="meats">Frozen Foods</option>
+                              </select>
+                        </div>
+                        <div class="col-sm d-flex align-items-center">
+                            <button id="add-item-button" class="btn btn-success">Add Item</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="pantry-items-header">
+                    <button class="accordion-button collapsed bg-success text-white pantry-items-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Pantry Items
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" >
+                    <div class="accordion-body" id="pantry-items-list">
+                      <!--pantry table goes here-->
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="fruits-items-header">
+                    <button id="accordion-button" class="accordion-button collapsed bg-success text-white fruits-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Fruits & Veggies
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" >
+                    <div class="accordion-body" id="fruits-items-list">
+                      <!--fruits table goes here-->
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="meats-items-header">
+                    <button class="accordion-button collapsed bg-success text-white meats-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Meats
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" >
+                    <div class="accordion-body" id="meats-items-list">
+                      <!--meats table goes here-->
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="frozen-foods-items-header">
+                      <button class="accordion-button collapsed bg-success text-white frozen-foods-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                        Frozen Foods
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" >
+                      <div class="accordion-body" id="frozen-foods-items-list">
+                        <!--frozen foods table goes here-->
+                      </div>
+                    </div>
+                  </div>
+              </div>
+    
     <br>
-
     <!-- This div is for Mike's recipe card entity -->
     <a name="mikeEntity"></a>
     <div class="container bg-light text-dark" id="new-recipe">

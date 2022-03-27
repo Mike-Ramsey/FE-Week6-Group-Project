@@ -41,11 +41,27 @@
     <br>
 
     <!-- This div is for Cassie's user list entity - we can move these around as needed later if we want -->
+    
     <a name="cassieEntity"></a>
-    <div>
+    <div class="container bg-light text-dark">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <h3 for="new-list-name">Add a New Contributor</h3>
+                        <input type="text" class="form-control" id="new-list-name" placeholder="First Name, Last Name"> 
+                    </div>
+                </div>
+            </div>
+            <div>
+              <button id="new-list" class="btn btn-success btn-sm">Submit</button> 
+            </div>
+        </div>
+    </div><br>
 
+    <div class="container bg-light text-dark" id="contributors">
+       
     </div>
-    <br>
 
     <!-- This div is for Erika's shopping list entity -->
     <a name="erikaEntity"></a>
@@ -141,7 +157,6 @@
 
     </div>
 
-    
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="groupApp.js"></script>
